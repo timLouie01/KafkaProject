@@ -1,0 +1,3 @@
+Consumed from Topic = Topic2 | Partition = 0 | Key = Tim | Value = Topic2:0
+Consumed from Topic = Topic2 | Partition = 1 | Key = Tim | Value = Topic2:1
+Consumed from Topic = Topic2 | Partition = 2 | Key = Tim | Value = Topic2:2
