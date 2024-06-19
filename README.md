@@ -1,4 +1,4 @@
-# Exlporation of Kafka's Client APIs
+# Exploration of Kafka's Client APIs
 
 - This java project interacts with the Apache Kafka Producer, Consumer, and Admin APIs. It runs Kafka in KRaft mode and utilizes docker containers.
 - It can be built running **mvn clean install** followed by running **docker compose up -d** from the project root directory which starts the kafka cluster.
