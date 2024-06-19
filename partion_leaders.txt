@@ -1,0 +1,6 @@
+Topic1 Partition: 0| Leader broker: 1
+Topic1 Partition: 1| Leader broker: 2
+Topic1 Partition: 2| Leader broker: 3
+Topic2 Partition: 0| Leader broker: 2
+Topic2 Partition: 1| Leader broker: 3
+Topic2 Partition: 2| Leader broker: 1

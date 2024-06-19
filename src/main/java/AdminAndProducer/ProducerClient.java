@@ -14,6 +14,9 @@ import java.util.Properties;
 import java.util.concurrent.Callable;
 import java.util.Set;
 import java.util.List;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+
 public class ProducerClient
 {
     private static class ErrorHandle implements Callback{

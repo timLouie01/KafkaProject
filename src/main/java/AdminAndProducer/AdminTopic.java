@@ -3,9 +3,14 @@ import org.apache.kafka.clients.admin.Admin;
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.DescribeClusterResult;
 import org.apache.kafka.clients.admin.NewTopic;
+import org.apache.kafka.clients.admin.TopicDescription;
 import org.apache.kafka.common.Node;
+import org.apache.kafka.common.TopicPartitionInfo;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Properties;
 import java.util.List;
 import java.util.Collections;
@@ -49,12 +54,28 @@ public class AdminTopic
             topics.add("Topic1");
             topics.add("Topic2");
             // List<NewTopic> newTopics = new ArrayList<>();
-    
-            for (String t: topics){
-                NewTopic topic = new NewTopic(t,numOfBrokers , (short) 2);
-                adminClient.createTopics(Collections.singleton(topic)).all().get();
+             try (BufferedWriter writer = new BufferedWriter(new FileWriter("partion_leaders.txt", false))) {
+                for (String t: topics){
+                    NewTopic topic = new NewTopic(t,numOfBrokers , (short) 2);
+                    adminClient.createTopics(Collections.singleton(topic)).all().get();
+                    try{
+                        Thread.sleep(2000);
+                    }catch (InterruptedException e){
+                        Thread.currentThread().interrupt();
+                        System.out.println("The current thread was interrupted");
+                    }
+                    for (TopicDescription value : adminClient.describeTopics(Collections.singleton(t)).all().get().values()){
+                        for (TopicPartitionInfo p : value.partitions()){
+                            String message = value.name() + " Partition: " + p.partition() + "| Leader broker: " + p.leader().id();
+                            writer.write(message);
+                            writer.newLine();
+                        }
+                    }
+                }
+             }
+             catch (Exception e){
+                e.printStackTrace();
             }
-           
             
         }catch (Exception e){
             e.printStackTrace();
