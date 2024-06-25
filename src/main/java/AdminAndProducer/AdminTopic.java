@@ -56,7 +56,7 @@ public class AdminTopic
             // List<NewTopic> newTopics = new ArrayList<>();
              try (BufferedWriter writer = new BufferedWriter(new FileWriter("partion_leaders.txt", false))) {
                 for (String t: topics){
-                    NewTopic topic = new NewTopic(t,numOfBrokers , (short) 2);
+                    NewTopic topic = new NewTopic(t,2*numOfBrokers , (short) 2);
                     adminClient.createTopics(Collections.singleton(topic)).all().get();
                     try{
                         Thread.sleep(2000);
